@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>
+      Presidential Nominee Location
+    </title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>Presidential Candidate Upcoming Events</h1>
+    <!-- <input type='checkbox' id='seeYangEvents' class='visibilityCheckbox'>Andrew Yang<br>
+    <input type='checkbox' id='seeWarrenEvents' class='visibilityCheckbox'>Elizabeth Warren<br> -->
+
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '442904353088918',
+            xfbml      : true,
+            version    : 'v5.0'
+            });
+            FB.AppEvents.logPageView();
+            FB.api(
+                "/joebiden",
+                {access_token: '442904353088918|ot6UwLO_PpLcVczfJAdolkCiATs'},
+                function (response) {
+                    console.log(response)
+                    if (response && !response.error) {
+                        /* handle the result */
+                }
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAASOeEYNDVsWG7w60w3w5TgX6odea3u8&callback=initMap">
+    </script>
+
+
+
+  </body>
+</html>
