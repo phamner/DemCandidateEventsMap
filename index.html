@@ -18,6 +18,8 @@
     <input type='checkbox' id='seeWarrenEvents'>Elizabeth Warren<br>
 
     <select name='states'>
+        <option value="All States">All States</option>
+
         <option value="Alabama">Alabama</option>
         <option value="Alaska">Alaska</option>
         <option value="Arizona">Arizona</option>
@@ -68,9 +70,11 @@
         <option value="West Virginia">West Virginia</option>
         <option value="Wisconsin">Wisconsin</option>
         <option value="Wyoming">Wyoming</option>
-      </select>
-    <button type='button'>Filter by State</button>
-
+      </select><br>
+    
+    <label for="start">Start date:</label>
+    <input type="date" id="start" name="trip-start" min="2019-01-01" max="2020-11-03">
+      
     <!--The div element for the map -->
     <div id="map"></div>
 
