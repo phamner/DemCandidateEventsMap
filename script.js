@@ -11,36 +11,6 @@ function initMap(){
         {zoom: 4, center: washingtonDC},
     );
 
-    // var contentString = '<div id="content">'+
-    // '<div id="siteNotice">'+
-    // '</div>'+
-    // '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-    // '<div id="bodyContent">'+
-    // '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-    // 'sandstone rock formation in the southern part of the '+
-    // 'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-    // 'south west of the nearest large town, Alice Springs; 450&#160;km '+
-    // '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-    // 'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-    // 'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-    // 'Aboriginal people of the area. It has many springs, waterholes, '+
-    // 'rock caves and ancient paintings. Uluru is listed as a World '+
-    // 'Heritage Site.</p>'+
-    // '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-    // 'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-    // '(last visited June 22, 2009).</p>'+
-    // '</div>'+
-    // '</div>';
-
-
-    // let infoWindow = new google.maps.InfoWindow({
-    //     content: contentString
-    // });
-
-    // marker.addListener('click', function() {
-    //     infowindow.open(map, marker);
-    // });
-
 
 
     
@@ -54,7 +24,7 @@ function initMap(){
             for(var i = 0; i < allEvents[candidate].length; i++){
                 let candidatePhotoURL = '';
                 
-                //checks which candidate we ar looking at, and select their photo to use as the marker
+                //checks which candidate we are looking at, and selects their photo to use as the marker
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Elizabeth Warren'){
                     candidatePhotoURL = 'candidatePhotos/Warren100px.png'
                 }
@@ -76,8 +46,10 @@ function initMap(){
                 `<h1 id="firstHeading" class="firstHeading">${allEvents[candidate][0]['organization']['candidate_name']}</h1>`+
                 '<div id="bodyContent">'+
                 `<p><b></b>${allEvents[candidate][i].name}<br><br>`+
+                `${allEvents[candidate][i].location_name}, ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allEvents[candidate][i].description}<br><br>`+
-                `Sign up: ${allEvents[candidate][i].organization.hot_leads_embed_url}<br>`+
+                `Sign up: ${allEvents[candidate][i].organization.hot_leads_embed_url}<br><br>`+
+                `Click here to Donate: ${allEvents[candidate][i].organization.act_blue_donate_url}`
                 '</div>'+
                 '</div>';
             
