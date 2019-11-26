@@ -10,9 +10,11 @@
 /* make the API call */
 
 
-var yangHolder = [];  //can be deleted later
 
 function initMap(){
+    var markerHolder = []; 
+
+
     // The location of DC
     let washingtonDC = {lat: 38.8977, lng: -77.036560};
 
@@ -29,7 +31,7 @@ function initMap(){
         for(var candidate in allEvents){
             for(var i = 0; i < allEvents[candidate].length; i++){
                 let candidatePhotoURL = '';
-   
+                
                 //checks which candidate we ar looking at, and select their photo to use as the marker
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Elizabeth Warren'){
                     candidatePhotoURL = 'candidatePhotos/Warren100px.png'
@@ -54,16 +56,39 @@ function initMap(){
                         }
                     }
                 );
-                yangHolder.push(x)
+
+                markerHolder.push(x)
             }
         }
     }
     loopThruAllEvents();
+    // console.log(x)
+    // console.log(markerHolder[0])
+    // console.log(allEvents['warrenEvents'][0])
+
+
+    let toggleWarren = document.getElementById('seeWarrenEvents').onclick = function(){
+        for(var i = 0; i < markerHolder.length; i++){
+            // console.log(markerHolder[i].icon.url)
+            if(markerHolder[i].icon.url === "candidatePhotos/Warren100px.png"){
+                markerHolder[i].visible = false;
+                // location.reload();  This doesn't work as intended.
+                // markerHolder[i].hide();
+                // console.log(markerHolder[i].visible)
+            }
+        }
+        // console.log('the Warren checkbox is working');
+        // console.log(markerHolder.length)
+        // markerHolder.toggle();
+        // x.hide()
+    }
+    let toggleYang = document.getElementById('seeYangEvents').onclick = function(){
+        console.log('the Yang checkbox is working')
+    }
 }
 
-Document.getElementById('seeYangEvents').onclick = function(){
-    console.log('the yang checkbox is working')
-}
+
+
 
 
 
