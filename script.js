@@ -34,9 +34,12 @@ function initMap(){
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Elizabeth Warren'){
                     candidatePhotoURL = 'candidatePhotos/Warren100px.png'
                 }
-                else {
+                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Andrew Yang'){
                     candidatePhotoURL = 'candidatePhotos/Yang100px.png'
                 }
+                // else {
+                //     candidatePhotoURL = 'candidatePhotos/Yang100px.png'
+                // }
 
                 if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
                     continue;
@@ -58,9 +61,9 @@ function initMap(){
     loopThruAllEvents();
 }
 
-// document.getElementsByClassName('visibilityCheckbox').onclick = function(){
-//     console.log('this checkbox is working')
-// }
+Document.getElementById('seeYangEvents').onclick = function(){
+    console.log('the yang checkbox is working')
+}
 
 
 
