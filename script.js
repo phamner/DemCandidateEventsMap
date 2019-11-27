@@ -39,7 +39,7 @@ function initMap(){
                     candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
                 }
                 else {
-                    console.log(allEvents[candidate][0]['organization']['candidate_name'])
+                    // console.log(allEvents[candidate][0]['organization']['candidate_name'])
                 }
 
                 if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
@@ -53,6 +53,7 @@ function initMap(){
                 `<h1 id="firstHeading" class="firstHeading">${allEvents[candidate][0]['organization']['candidate_name']}</h1>`+
                 '<div id="bodyContent">'+
                 `<p><b></b>${allEvents[candidate][i].name}<br><br>`+
+                `From ${allEvents[candidate][i].times[0].start} until ${allEvents[candidate][i].times[0].end}<br><br>`+
                 `${allEvents[candidate][i].location_name}, ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allEvents[candidate][i].description}<br><br>`+
                 `Sign up: ${allEvents[candidate][i].organization.hot_leads_embed_url}<br><br>`+
@@ -94,14 +95,14 @@ function initMap(){
     }
 
     //calls the function setMapOnAll(), iterating through array markerHolder to populate map w/ markers
-    setMapOnAll(map);
+    // setMapOnAll(map);
 
 
     //toggle for Yang map markers (on and off)
     const yangCheckbox  = document.getElementById('seeYangEvents')
     yangCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            console.log('checked');
+            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Yang100px.png'){
                     markerHolder[i].setMap(map)
@@ -109,7 +110,7 @@ function initMap(){
             }
 
         } else {
-            console.log('not checked');
+            // console.log('not checked');
             // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Yang100px.png'){
@@ -124,7 +125,7 @@ function initMap(){
     const warrenCheckbox = document.getElementById('seeWarrenEvents')
     warrenCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            console.log('checked');
+            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Warren100px.png'){
                     markerHolder[i].setMap(map)
@@ -132,7 +133,7 @@ function initMap(){
             }
 
         } else {
-            console.log('not checked');
+            // console.log('not checked');
             // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Warren100px.png'){
@@ -146,7 +147,7 @@ function initMap(){
     const bidenCheckbox = document.getElementById('seeBidenEvents')
     bidenCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            console.log('checked');
+            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Biden100px.png'){
                     markerHolder[i].setMap(map)
@@ -154,7 +155,7 @@ function initMap(){
             }
 
         } else {
-            console.log('not checked');
+            // console.log('not checked');
             // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Biden100px.png'){
@@ -168,7 +169,7 @@ function initMap(){
     const buttigiegCheckbox = document.getElementById('seeButtigiegEvents')
     buttigiegCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            console.log('checked');
+            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Buttigieg100px.png'){
                     markerHolder[i].setMap(map)
@@ -176,10 +177,32 @@ function initMap(){
             }
 
         } else {
-            console.log('not checked');
+            // console.log('not checked');
             // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Buttigieg100px.png'){
+                    markerHolder[i].setMap(null)
+                }
+            }
+        }
+    })
+
+    //toggle for Sanders map markers (on and off)
+    const sandersCheckbox = document.getElementById('seeSandersEvents')
+    sandersCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            // console.log('checked');
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Sanders100px.png'){
+                    markerHolder[i].setMap(map)
+                }
+            }
+
+        } else {
+            // console.log('not checked');
+            // clearMarkers()
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Sanders100px.png'){
                     markerHolder[i].setMap(null)
                 }
             }
@@ -234,18 +257,18 @@ function initMap(){
         // markerHolder.toggle();
         // x.hide()
     // }
-    let toggleYang = document.getElementById('seeYangEvents').onclick = function(){
-        console.log('the Yang checkbox is working')
-    }
-    let toggleBiden = document.getElementById('seeBidenEvents').onclick = function(){
-        console.log('the Biden checkbox is working')
-    }
-    let toggleButtigieg = document.getElementById('seeButtigiegEvents').onclick = function(){
-        console.log('the Buttigieg checkbox is working')
-    }
-    let toggleSanders = document.getElementById('seeSandersEvents').onclick = function(){
-        console.log('the Sanders checkbox is working')
-    }
+    // let toggleYang = document.getElementById('seeYangEvents').onclick = function(){
+    //     console.log('the Yang checkbox is working')
+    // }
+    // let toggleBiden = document.getElementById('seeBidenEvents').onclick = function(){
+    //     console.log('the Biden checkbox is working')
+    // }
+    // let toggleButtigieg = document.getElementById('seeButtigiegEvents').onclick = function(){
+    //     console.log('the Buttigieg checkbox is working')
+    // }
+    // let toggleSanders = document.getElementById('seeSandersEvents').onclick = function(){
+    //     console.log('the Sanders checkbox is working')
+    // }
 
 
     

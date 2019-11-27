@@ -34723,249 +34723,244 @@ const allEvents = {
             "state_senate_district": "11"
         }
     ],
-    "sandersEvents": []
+    "sandersEvents": [
+        {
+            "id": 135597,
+            "name": "Beaufort Phone Bank event",
+            "van_name": "Region4:LC_Beaufort_PB",
+            "tagline": "",
+            "description": "Join the Beaufort team make calls to spread Senator Sanders message so he can become the next POTUS. :) We need your help. :)",
+            "description_html": "<p>Join the Beaufort team make calls to spread Senator Sanders message so he can become the next POTUS. :) We need your help. :)</p>",
+            "event_type": 2,
+            "visibility": 1,
+            "is_virtual": false,
+            "advocacy_campaign_id": null,
+            "virtual_action_url": null,
+            "virtual_action_button_text": null,
+            "location_is_private": false,
+            "city": "Beaufort",
+            "state": "SC",
+            "zipcode": "29902",
+            "country": "US",
+            "timezone": "America/New_York",
+            "external_sync": 1,
+            "volunteer_check_in_is_enabled": true,
+            "approval_status": 1,
+            "deleted_at_utc": null,
+            "created_by_distributed_organizing": false,
+            "accessibility_status": 1,
+            "accessibility_notes": "",
+            "post_signup_ask": null,
+            "post_signup_email_ask": null,
+            "is_distributed_organizing_event_with_customizations": null,
+            "creator": null,
+            "creator_permission_tier": null,
+            "organization": {
+                "id": 1771,
+                "name": "Bernie Sanders for South Carolina",
+                "slug": "sanderssc",
+                "state": "SC",
+                "race_type": 10,
+                "district": "",
+                "candidate_name": "",
+                "is_primary_campaign": true,
+                "reply_to_email": "info@berniesanders.com",
+                "org_type": 1,
+                "facebook_pixel_id": null,
+                "google_analytics_id": null,
+                "slaask_app_id": null,
+                "zendesk_subdomain": null,
+                "intercom_app_id": null,
+                "allow_promotion_by_other_orgs": true,
+                "require_membership_for_feed": false,
+                "require_membership_title": null,
+                "require_membership_description": "",
+                "require_membership_confirm_button_text": null,
+                "require_membership_decline_button_text": null,
+                "require_membership_decline_description": "",
+                "require_membership_decline_link": null,
+                "require_membership_email_disclaimer": "",
+                "require_membership_sms_disclaimer": "",
+                "require_membership_long_description": "",
+                "require_membership_membership_disclaimer": "",
+                "branding": {
+                    "background_color": "#005f92",
+                    "logo_url": "https://mobilize-uploads-prod.s3.us-east-2.amazonaws.com/uploads/organization/1280px-Bernie_Sanders_2020_logo.svg_20191020035809732337.png",
+                    "url": "",
+                    "affiliation_name": "",
+                    "banner_header": "",
+                    "banner_body_html": "",
+                    "post_signup_modal_button_text": "",
+                    "remove_mobilize_branding": false,
+                    "custom_signup_form_sms_opt_in_text": "",
+                    "custom_signup_form_subtext": "",
+                    "hide_org_name_when_promoting": false,
+                    "fec_disclaimer": "Paid for by Bernie 2020 (not the billionaires)",
+                    "enable_brand_banner": null,
+                    "brand_banner_text": "",
+                    "brand_banner_url": null
+                },
+                "hashtag": null,
+                "show_event_feed_banner": false,
+                "precheck_two_timeslots": true,
+                "lead_capture_in_feed": false,
+                "flags": null,
+                "hot_leads_embed_url": "https://www.mobilize.us/embed/sanderssc/signup/",
+                "feed_embed_url": "https://www.mobilize.us/embed/sanderssc/feed/",
+                "upcoming_event_count": null,
+                "is_promoted": null,
+                "enable_dist_org_create_event_discoverability": false,
+                "default_event_campaign": null,
+                "custom_domain": null,
+                "app_organization_feed_url": "https://www.mobilize.us/sanderssc/",
+                "whitelabel_custom_html": "",
+                "is_independent": false,
+                "mobilize_intercom_app_id": "w1km3zsq",
+                "events_feed_social_image_url": null,
+                "events_feed_social_sharing_title": null,
+                "events_feed_social_sharing_description": null,
+                "is_mobilize": false,
+                "act_blue_donation_amounts": [
+                    "2.70",
+                    "27.00",
+                    "50.00",
+                    "100.00",
+                    "250.00",
+                    "500.00"
+                ],
+                "act_blue_donate_url": "https://secure.actblue.com/donate/bernie-mobilize?refcode=mobilize-postsignup",
+                "act_blue_donate_url_for_email": "https://secure.actblue.com/donate/bernie-mobilize?refcode=mobilize-registration-confirmation",
+                "post_signup_ask": 1,
+                "post_signup_email_ask": 1
+            },
+            "current_org_is_owner_or_co_owner": false,
+            "image_url": "",
+            "is_featured": false,
+            "is_excluded": null,
+            "first_timeslot": null,
+            "next_timeslot": null,
+            "upcoming_participant_count": null,
+            "van_role_name": null,
+            "permissions": null,
+            "ratings": null,
+            "is_virtual_flexible": false,
+            "times": [
+                {
+                    "id": 743069,
+                    "start": "2019-11-26T09:00:00Z",
+                    "end": "2019-11-27T00:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 742959,
+                    "start": "2019-11-26T15:00:00Z",
+                    "end": "2019-11-26T18:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743014,
+                    "start": "2019-11-26T18:00:00Z",
+                    "end": "2019-11-26T21:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743070,
+                    "start": "2019-11-27T09:00:00Z",
+                    "end": "2019-11-28T00:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 742960,
+                    "start": "2019-11-27T15:00:00Z",
+                    "end": "2019-11-27T18:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743015,
+                    "start": "2019-11-27T18:00:00Z",
+                    "end": "2019-11-27T21:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743071,
+                    "start": "2019-11-28T09:00:00Z",
+                    "end": "2019-11-29T00:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 742961,
+                    "start": "2019-11-28T15:00:00Z",
+                    "end": "2019-11-28T18:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743016,
+                    "start": "2019-11-28T18:00:00Z",
+                    "end": "2019-11-28T21:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743072,
+                    "start": "2019-11-29T09:00:00Z",
+                    "end": "2019-11-30T00:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 742962,
+                    "start": "2019-11-29T15:00:00Z",
+                    "end": "2019-11-29T18:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743017,
+                    "start": "2019-11-29T18:00:00Z",
+                    "end": "2019-11-29T21:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 742963,
+                    "start": "2019-11-30T15:00:00Z",
+                    "end": "2019-11-30T18:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743018,
+                    "start": "2019-11-30T18:00:00Z",
+                    "end": "2019-11-30T21:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 742964,
+                    "start": "2019-12-01T15:00:00Z",
+                    "end": "2019-12-01T18:00:00Z",
+                    "remaining_spots": null
+                },
+                {
+                    "id": 743019,
+                    "start": "2019-12-01T18:00:00Z",
+                    "end": "2019-12-01T21:00:00Z",
+                    "remaining_spots": null
+                }
+            ],
+            "distance": null,
+            "tags": null,
+            "reply_to_email": null,
+            "pro_tips": null,
+            "pro_tips_html": null,
+            "contact_name": null,
+            "contact_number": null,
+            "location_one_line": "Beaufort Bernie Sanders HQ, 918 Port Republic, Beaufort, SC, 29902",
+            "location_name": "Beaufort Bernie Sanders HQ",
+            "address_line1": "918 Port Republic",
+            "address_line2": "",
+            "lat": 32.4316885,
+            "lon": -80.6726595,
+            "congressional_district": "1",
+            "state_leg_district": "124",
+            "state_senate_district": "46"
+        }
+    ]
 }
-    
-    
-    
-//     [
-//         {
-//             "id": 135597,
-//             "name": "Beaufort Phone Bank event",
-//             "van_name": "Region4:LC_Beaufort_PB",
-//             "tagline": "",
-//             "description": "Join the Beaufort team make calls to spread Senator Sanders message so he can become the next POTUS. :) We need your help. :)",
-//             "description_html": "<p>Join the Beaufort team make calls to spread Senator Sanders message so he can become the next POTUS. :) We need your help. :)</p>",
-//             "event_type": 2,
-//             "visibility": 1,
-//             "is_virtual": false,
-//             "advocacy_campaign_id": null,
-//             "virtual_action_url": null,
-//             "virtual_action_button_text": null,
-//             "location_is_private": false,
-//             "city": "Beaufort",
-//             "state": "SC",
-//             "zipcode": "29902",
-//             "country": "US",
-//             "timezone": "America/New_York",
-//             "external_sync": 1,
-//             "volunteer_check_in_is_enabled": true,
-//             "approval_status": 1,
-//             "deleted_at_utc": null,
-//             "created_by_distributed_organizing": false,
-//             "accessibility_status": 1,
-//             "accessibility_notes": "",
-//             "post_signup_ask": null,
-//             "post_signup_email_ask": null,
-//             "is_distributed_organizing_event_with_customizations": null,
-//             "creator": null,
-//             "creator_permission_tier": null,
-//             "organization": {
-//                 "id": 1771,
-//                 "name": "Bernie Sanders for South Carolina",
-//                 "slug": "sanderssc",
-//                 "state": "SC",
-//                 "race_type": 10,
-//                 "district": "",
-//                 "candidate_name": "",
-//                 "is_primary_campaign": true,
-//                 "reply_to_email": "info@berniesanders.com",
-//                 "org_type": 1,
-//                 "facebook_pixel_id": null,
-//                 "google_analytics_id": null,
-//                 "slaask_app_id": null,
-//                 "zendesk_subdomain": null,
-//                 "intercom_app_id": null,
-//                 "allow_promotion_by_other_orgs": true,
-//                 "require_membership_for_feed": false,
-//                 "require_membership_title": null,
-//                 "require_membership_description": "",
-//                 "require_membership_confirm_button_text": null,
-//                 "require_membership_decline_button_text": null,
-//                 "require_membership_decline_description": "",
-//                 "require_membership_decline_link": null,
-//                 "require_membership_email_disclaimer": "",
-//                 "require_membership_sms_disclaimer": "",
-//                 "require_membership_long_description": "",
-//                 "require_membership_membership_disclaimer": "",
-//                 "branding": {
-//                     "background_color": "#005f92",
-//                     "logo_url": "https://mobilize-uploads-prod.s3.us-east-2.amazonaws.com/uploads/organization/1280px-Bernie_Sanders_2020_logo.svg_20191020035809732337.png",
-//                     "url": "",
-//                     "affiliation_name": "",
-//                     "banner_header": "",
-//                     "banner_body_html": "",
-//                     "post_signup_modal_button_text": "",
-//                     "remove_mobilize_branding": false,
-//                     "custom_signup_form_sms_opt_in_text": "",
-//                     "custom_signup_form_subtext": "",
-//                     "hide_org_name_when_promoting": false,
-//                     "fec_disclaimer": "Paid for by Bernie 2020 (not the billionaires)",
-//                     "enable_brand_banner": null,
-//                     "brand_banner_text": "",
-//                     "brand_banner_url": null
-//                 },
-//                 "hashtag": null,
-//                 "show_event_feed_banner": false,
-//                 "precheck_two_timeslots": true,
-//                 "lead_capture_in_feed": false,
-//                 "flags": null,
-//                 "hot_leads_embed_url": "https://www.mobilize.us/embed/sanderssc/signup/",
-//                 "feed_embed_url": "https://www.mobilize.us/embed/sanderssc/feed/",
-//                 "upcoming_event_count": null,
-//                 "is_promoted": null,
-//                 "enable_dist_org_create_event_discoverability": false,
-//                 "default_event_campaign": null,
-//                 "custom_domain": null,
-//                 "app_organization_feed_url": "https://www.mobilize.us/sanderssc/",
-//                 "whitelabel_custom_html": "",
-//                 "is_independent": false,
-//                 "mobilize_intercom_app_id": "w1km3zsq",
-//                 "events_feed_social_image_url": null,
-//                 "events_feed_social_sharing_title": null,
-//                 "events_feed_social_sharing_description": null,
-//                 "is_mobilize": false,
-//                 "act_blue_donation_amounts": [
-//                     "2.70",
-//                     "27.00",
-//                     "50.00",
-//                     "100.00",
-//                     "250.00",
-//                     "500.00"
-//                 ],
-//                 "act_blue_donate_url": "https://secure.actblue.com/donate/bernie-mobilize?refcode=mobilize-postsignup",
-//                 "act_blue_donate_url_for_email": "https://secure.actblue.com/donate/bernie-mobilize?refcode=mobilize-registration-confirmation",
-//                 "post_signup_ask": 1,
-//                 "post_signup_email_ask": 1
-//             },
-//             "current_org_is_owner_or_co_owner": false,
-//             "image_url": "",
-//             "is_featured": false,
-//             "is_excluded": null,
-//             "first_timeslot": null,
-//             "next_timeslot": null,
-//             "upcoming_participant_count": null,
-//             "van_role_name": null,
-//             "permissions": null,
-//             "ratings": null,
-//             "is_virtual_flexible": false,
-//             "times": [
-//                 {
-//                     "id": 743069,
-//                     "start": "2019-11-26T09:00:00Z",
-//                     "end": "2019-11-27T00:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 742959,
-//                     "start": "2019-11-26T15:00:00Z",
-//                     "end": "2019-11-26T18:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743014,
-//                     "start": "2019-11-26T18:00:00Z",
-//                     "end": "2019-11-26T21:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743070,
-//                     "start": "2019-11-27T09:00:00Z",
-//                     "end": "2019-11-28T00:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 742960,
-//                     "start": "2019-11-27T15:00:00Z",
-//                     "end": "2019-11-27T18:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743015,
-//                     "start": "2019-11-27T18:00:00Z",
-//                     "end": "2019-11-27T21:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743071,
-//                     "start": "2019-11-28T09:00:00Z",
-//                     "end": "2019-11-29T00:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 742961,
-//                     "start": "2019-11-28T15:00:00Z",
-//                     "end": "2019-11-28T18:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743016,
-//                     "start": "2019-11-28T18:00:00Z",
-//                     "end": "2019-11-28T21:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743072,
-//                     "start": "2019-11-29T09:00:00Z",
-//                     "end": "2019-11-30T00:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 742962,
-//                     "start": "2019-11-29T15:00:00Z",
-//                     "end": "2019-11-29T18:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743017,
-//                     "start": "2019-11-29T18:00:00Z",
-//                     "end": "2019-11-29T21:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 742963,
-//                     "start": "2019-11-30T15:00:00Z",
-//                     "end": "2019-11-30T18:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743018,
-//                     "start": "2019-11-30T18:00:00Z",
-//                     "end": "2019-11-30T21:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 742964,
-//                     "start": "2019-12-01T15:00:00Z",
-//                     "end": "2019-12-01T18:00:00Z",
-//                     "remaining_spots": null
-//                 },
-//                 {
-//                     "id": 743019,
-//                     "start": "2019-12-01T18:00:00Z",
-//                     "end": "2019-12-01T21:00:00Z",
-//                     "remaining_spots": null
-//                 }
-//             ],
-//             "distance": null,
-//             "tags": null,
-//             "reply_to_email": null,
-//             "pro_tips": null,
-//             "pro_tips_html": null,
-//             "contact_name": null,
-//             "contact_number": null,
-//             "location_one_line": "Beaufort Bernie Sanders HQ, 918 Port Republic, Beaufort, SC, 29902",
-//             "location_name": "Beaufort Bernie Sanders HQ",
-//             "address_line1": "918 Port Republic",
-//             "address_line2": "",
-//             "lat": 32.4316885,
-//             "lon": -80.6726595,
-//             "congressional_district": "1",
-//             "state_leg_district": "124",
-//             "state_senate_district": "46"
-//         }
-//     ]
-// }
         // {
     //         "id": 156362,
     //         "name": "Bernie 2020 Phonebank in St. Louis",
