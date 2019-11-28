@@ -1,5 +1,49 @@
 /* Set the size of the div element that contains the map */
 #map {
     height: 600px;  /* The height is 400 pixels */
-    width: 100%;  /* The width is the width of the web page */
+    width: 80%;  /* The width is the width of the web page */
+    /* position: relative;
+    right: 5px; */
+    border: 3px solid black;
+    float: right;
 }
+
+#candidateChecklist{
+    display: flex;
+    float: left;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.container {
+    display: flex;
+}
+/* .box{
+    display: flex;
+    float: left;
+    flex-direction: column;
+    flex-wrap: wrap;
+} */
+h1{
+    text-align: center;
+}
+input[type="checkbox"] {
+    display: inline-block;
+    width: 15px;
+    vertical-align: top;
+}
+.label-text {
+    display: inline-block;
+    width: 200px;
+    word-break: break-all; 
+  }
+  
+
+
+/* 
+  ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  } */
+
+

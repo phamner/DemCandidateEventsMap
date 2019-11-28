@@ -2,11 +2,13 @@ function initMap(){
 
     // The location of DC
     let washingtonDC = {lat: 38.8977, lng: -77.036560};
+    // The geographic center of the contiguous United States
+    let centerOfUSA = {lat: 39.8282, lng: -98.5795};
 
     // Create map, centered at Washington D.C.
     let map = new google.maps.Map(
         document.getElementById('map'), 
-        {zoom: 4, center: washingtonDC},
+        {zoom: 4, center: centerOfUSA},
     );
 
     let markerHolder = []; 

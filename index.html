@@ -13,18 +13,44 @@
   </head>
 
   <body>
+    
     <h1>Democratic Presidential Race Events</h1>
-    <input type='checkbox' id='selectAll'>Select All<br>
-    <input type='checkbox' id='seeYangEvents'>Andrew Yang<br>
-    <input type='checkbox' id='seeWarrenEvents'>Elizabeth Warren<br>
-    <input type='checkbox' id='seeBidenEvents'>Joe Biden<br>
-    <input type='checkbox' id='seeButtigiegEvents'>Pete Buttigieg<br>
-    <input type='checkbox' id='seeSandersEvents'>Bernie Sanders (not working)<br>
-    <input type='checkbox' id='seeHarrisEvents'>Kamala Harris (not working)<br>
-    <input type='checkbox' id='seeKlobucharEvents'>Amy Klobuchar<br>
-    <input type='checkbox' id='seeBookerEvents'>Cory Booker (not working)<br>
-    <input type='checkbox' id='seeSteyerEvents'>Tom Steyer<br>
 
+    <div id="map" class="container"></div>
+
+    <div class="container" id="candidateChecklist">
+      <label>
+        <input type='checkbox' id='selectAll'><span class='label-text'>Select All</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeYangEvents'><span class='label-text'>#YangGang</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeWarrenEvents'><span class='label-text'>Liz Warren</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeBidenEvents'><span class='label-text'>Joe Biden</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeButtigiegEvents'><span class='label-text'>Pete Buttigieg</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeSandersEvents'><span class='label-text'>Bernie Sanders (not working)</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeHarrisEvents'><span class='label-text'>Kamala Harris (not working)</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeKlobucharEvents'><span class='label-text'>Amy Klobuchar</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeBookerEvents'><span class='label-text'>Cory Booker (not working)</span>
+      </label>
+      <label>
+          <input type='checkbox' id='seeSteyerEvents'><span class='label-text'>Tom Steyer</span>
+      </label>
+    </div>
+    
 
 
     <!-- <select name='states'>
@@ -86,7 +112,6 @@
     <input type="date" id="start" name="trip-start" min="2019-01-01" max="2020-11-03"> -->
       
     <!--The div element for the map -->
-    <div id="map"></div>
 
     <script>
         window.fbAsyncInit = function() {
