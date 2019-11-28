@@ -10,6 +10,11 @@
     </title>
 
     <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
   </head>
 
   <body>
@@ -38,19 +43,37 @@
           <input type='checkbox' id='seeSandersEvents'><span class='label-text'>Bernie Sanders (not working)</span>
       </label>
       <label>
-          <input type='checkbox' id='seeHarrisEvents'><span class='label-text'>Kamala Harris (not working)</span>
+          <input type='checkbox' id='seeHarrisEvents'><span class='label-text'>Kamala Harris</span>
       </label>
       <label>
           <input type='checkbox' id='seeKlobucharEvents'><span class='label-text'>Amy Klobuchar</span>
       </label>
       <label>
-          <input type='checkbox' id='seeBookerEvents'><span class='label-text'>Cory Booker (not working)</span>
+          <input type='checkbox' id='seeBookerEvents'><span class='label-text'>Cory Booker</span>
       </label>
       <label>
           <input type='checkbox' id='seeSteyerEvents'><span class='label-text'>Tom Steyer</span>
-      </label>
+      </label><br>
+      <label>Select Dates</label>
+
     </div>
+
+
+
+
+
+
     
+    <input type="text" name="daterange" id='current-date'value=currentDate/>
+    <script>
+
+    </script>
+
+
+
+           
+
+
 
 
     <!-- <select name='states'>
@@ -143,6 +166,9 @@
     </script>
     <script src="data.js"></script>
     <script src="script.js"></script>
+
+
+
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAASOeEYNDVsWG7w60w3w5TgX6odea3u8&callback=initMap">

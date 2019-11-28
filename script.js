@@ -1,3 +1,43 @@
+window.onload = onPageLoad();
+
+function onPageLoad() {
+  document.getElementById("selectAll").checked = true;
+}
+
+let currentDateYearFirst = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+let currentYear = currentDateYearFirst.slice(0,4);
+let currentMonthDay = currentDateYearFirst.slice(5);
+let currentDate = currentMonthDay + '/' + currentYear
+
+
+
+// console.log(currentDate)
+// console.log(currentMonthDay)
+
+
+
+
+// function toggleAllCanidates(){
+//     if(document.getElementById('selectAll').checked = true){
+//         document.getElementById('seeYangEvents').checked = true
+//     }
+// }
+
+
+$(function() {
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+    }, function(start, end, label) {
+        let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
+        console.log("A new date selection was made: " + dateRange);
+    });
+});
+  
+
+
+
+
+
 function initMap(){
 
     // The location of DC
@@ -39,16 +79,16 @@ function initMap(){
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Pete Buttigieg'){
                     candidatePhotoURL = 'candidatePhotos/Buttigieg100px.png'
                 }
-                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Bernie Sanders'){
+                else if(allEvents[candidate][i].organization.name.includes('Bernie')){
                     candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
                 }
-                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Kamala Harris'){
+                else if(allEvents[candidate][0]['organization'].name.slice(0, 13) === 'Kamala Harris'){
                     candidatePhotoURL = 'candidatePhotos/Harris100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Amy Klobuchar'){
                     candidatePhotoURL = 'candidatePhotos/Klobuchar100px.png'
                 }
-                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Cory Booker'){
+                else if(allEvents[candidate][0]['organization'].slug === 'corybooker'){
                     candidatePhotoURL = 'candidatePhotos/Booker100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Tom Steyer'){
@@ -63,21 +103,58 @@ function initMap(){
                     continue;
                 }
 
+
+                //https://www.mobilize.us/kamalaharris/event/132893/
+                //https://www.mobilize.us/corybooker/event/164249/
+
                 //This creates the unique event URL for the candidate in question to be added to each contentString.  
                 let eventURLString = '';
                 let candidateNameNoSpaces = (allEvents[candidate][i].organization.candidate_name).toLowerCase().replace(/\s/g,'');
+            
+                if(allEvents[candidate][i].organization.name.includes('Bernie')){
+                    // https://events.berniesanders.com/event/135597/
+                    eventURLString = 'https://events.berniesanders.com/event/' + allEvents[candidate][i].id + '/'
+                    // console.log('hi bernie!')
+                }
 
-                if(allEvents[candidate][i].organization.candidate_name === 'Elizabeth Warren' || allEvents[candidate][i].organization.candidate_name === 'Joe Biden' || allEvents[candidate][i].organization.candidate_name === 'Amy Klobuchar'){
+                else if(allEvents[candidate][i].organization.candidate_name === 'Elizabeth Warren' || allEvents[candidate][i].organization.candidate_name === 'Joe Biden' || allEvents[candidate][i].organization.candidate_name === 'Amy Klobuchar'){
+                    console.log('this is for ' + allEvents[candidate][i].organization.candidate_name)
                     eventURLString = 'https://www.mobilize.us/' + candidateNameNoSpaces + '/event/' + allEvents[candidate][i].id + '/';  
                 } 
+                else if(allEvents[candidate][i].organization.name.includes('Kamala Harris') || allEvents[candidate][i].organization.slug.slice(0,6) === 'kamala'){
+                    console.log('this is for Kamala')
+                    eventURLString = 'https://www.mobilize.us/kamalaharris/event/' + allEvents[candidate][i].id + '/'
+                }
+                else if(allEvents[candidate][i].organization.candidate_name === 'Cory Booker' || allEvents[candidate][i].organization.slug === 'corybooker' || allEvents[candidate][i].organization.name.slice(0,4) === 'Cory'){
+                    console.log('this is for cory booker')
+                    eventURLString = 'https://www.mobilize.us/corybooker/event/' + allEvents[candidate][i].id + '/';
+                }
                 else if (allEvents[candidate][i].organization.candidate_name === 'Tom Steyer'){
+                    console.log('this is for tom steyer')
                     eventURLString = 'https://events.' + candidateNameNoSpaces + '.com/event/' + allEvents[candidate][i].id + '/';
                 }
                 else if (allEvents[candidate][i].organization.candidate_name === 'Pete Buttigieg'){
+                    console.log('this is for mayor pete')
                     eventURLString = 'https://www.mobilize.us/peteforamerica/event/' +  allEvents[candidate][i].id + '/';
                 }
                 else if (allEvents[candidate][i].organization.candidate_name === 'Andrew Yang'){
+                    console.log('this is for andrew yang')
+
                     eventURLString = 'https://www.mobilize.us/yang2020/event/' +  allEvents[candidate][i].id + '/';
+                }
+
+                let titleForPopup = '';
+                if(allEvents[candidate][0].organization.candidate_name){
+                    titleForPopup = allEvents[candidate][0].organization.candidate_name;
+                }
+                else if (allEvents[candidate][i]['organization'].name.slice(0, 13) === 'Kamala Harris'){
+                    titleForPopup = 'Kamala Harris'
+                }
+                else if(allEvents[candidate][i].organization.name.includes('Bernie')){
+                    titleForPopup = 'Bernie Sanders'
+                }
+                else {
+                    titleForPopup = 'Cory Booker'
                 }
 
                 //This is the text used in each infoWindow.
@@ -85,7 +162,7 @@ function initMap(){
                 '<div id="content">'+
                 '<div id="eventDescription">'+
                 '</div>'+
-                `<h1 id="firstHeading" class="firstHeading">${allEvents[candidate][0]['organization']['candidate_name']}</h1>`+
+                `<h1 id="firstHeading" class="firstHeading">${titleForPopup}</h1>`+
                 '<div id="bodyContent">'+
                 `<p><b></b>${allEvents[candidate][i].name}<br><br>`+
                 `From ${allEvents[candidate][i].times[0].start} until ${allEvents[candidate][i].times[0].end}<br><br>`+
@@ -103,6 +180,9 @@ function initMap(){
 
                 //Adds a marker for each event to map
                 let latLonPosition = {lat: allEvents[candidate][i].lat, lng: allEvents[candidate][i].lon};
+                if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
+                    console.log(allEvents[candidate][i])
+                }
                 let marker = new google.maps.Marker({
                     position: latLonPosition,
                     icon: {
@@ -404,10 +484,6 @@ function initMap(){
             }
         }
     })
-
-
-
-
 }
 
 

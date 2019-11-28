@@ -6,8 +6,15 @@
     right: 5px; */
     border: 3px solid black;
     float: right;
+    /* -webkit-webkit: flex shrink 5;
+    -moz-webkit: flex shrink 5;
+    -ms-webkit: flex shrink 5;
+    -o-webkit: flex shrink 5;
+    -webkit: flex shrink 2; */
 }
-
+#current-date{
+    min-width:60px;
+}
 #candidateChecklist{
     display: flex;
     float: left;
