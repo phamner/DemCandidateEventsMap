@@ -10,6 +10,8 @@ function initMap(){
     );
 
     let markerHolder = []; 
+    geocoder = new google.maps.Geocoder();
+
 
     
     //Each function loops through one of the candidates (organized alphabetically) 
@@ -38,6 +40,18 @@ function initMap(){
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Bernie Sanders'){
                     candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
                 }
+                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Kamala Harris'){
+                    candidatePhotoURL = 'candidatePhotos/Harris100px.png'
+                }
+                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Amy Klobuchar'){
+                    candidatePhotoURL = 'candidatePhotos/Klobuchar100px.png'
+                }
+                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Cory Booker'){
+                    candidatePhotoURL = 'candidatePhotos/Booker100px.png'
+                }
+                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Tom Steyer'){
+                    candidatePhotoURL = 'candidatePhotos/Steyer100px.png'
+                }
                 else {
                     // console.log(allEvents[candidate][0]['organization']['candidate_name'])
                 }
@@ -46,6 +60,39 @@ function initMap(){
                     continue;
                 }
 
+                //https://www.mobilize.us/joebiden/event/124222/
+                //https://www.mobilize.us/amyklobuchar/event/126637/
+                //https://events.elizabethwarren.com/event/156097/
+
+                //https://events.tomsteyer.com/event/162762/
+                //https://www.mobilize.us/peteforamerica/event/149054/
+                //https://www.mobilize.us/yang2020/event/165367/
+            
+                // let standardEventURL = 'https://www.mobilize.us/'+(allEvents[candidate][i].organization.candidate_name).toLowerCase().replace(/\s/g,'')+'/event/'+(allEvents[candidate][i].id)+'/';  
+                // console.log(standardEventURL)
+
+
+
+
+
+                //This creates the unique event URL for the candidate in question to be added to each contentString.  
+                let eventURLString = '';
+                let candidateNameNoSpaces = (allEvents[candidate][i].organization.candidate_name).toLowerCase().replace(/\s/g,'');
+
+                if(allEvents[candidate][i].organization.candidate_name === 'Elizabeth Warren' || allEvents[candidate][i].organization.candidate_name === 'Joe Biden' || allEvents[candidate][i].organization.candidate_name === 'Amy Klobuchar'){
+                    eventURLString = 'https://www.mobilize.us/' + candidateNameNoSpaces + '/event/' + allEvents[candidate][i].id + '/';  
+                } 
+                else if (allEvents[candidate][i].organization.candidate_name === 'Tom Steyer'){
+                    eventURLString = 'https://events.' + candidateNameNoSpaces + '.com/event/' + allEvents[candidate][i].id + '/';
+                }
+                else if (allEvents[candidate][i].organization.candidate_name === 'Pete Buttigieg'){
+                    eventURLString = 'https://www.mobilize.us/peteforamerica/event/' +  allEvents[candidate][i].id + '/';
+                }
+                else if (allEvents[candidate][i].organization.candidate_name === 'Andrew Yang'){
+                    eventURLString = 'https://www.mobilize.us/yang2020/event/' +  allEvents[candidate][i].id + '/';
+                }
+
+                //This is the text used in each infoWindow.
                 let contentString = 
                 '<div id="content">'+
                 '<div id="eventDescription">'+
@@ -56,18 +103,20 @@ function initMap(){
                 `From ${allEvents[candidate][i].times[0].start} until ${allEvents[candidate][i].times[0].end}<br><br>`+
                 `${allEvents[candidate][i].location_name}, ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allEvents[candidate][i].description}<br><br>`+
-                `Sign up: ${allEvents[candidate][i].organization.hot_leads_embed_url}<br><br>`+
-                // `Click here to Donate: ${allEvents[candidate][i].organization.act_blue_donate_url}`
+                // `${eventURLString}<br><br>`+
+                `<a target="_blank" href=${eventURLString}>Click Here to Learn More</a>`+
+
                 '</div>'+
                 '</div>';
-            
+                
+                //creates the infoWindow.
                 let infoWindow = new google.maps.InfoWindow({
                     content: contentString
                 });
 
+                let latLonPosition = {lat: allEvents[candidate][i].lat, lng: allEvents[candidate][i].lon};
                 let marker = new google.maps.Marker({
-                    position: {lat: allEvents[candidate][i].lat, lng: allEvents[candidate][i].lon},
-                    // map: map, 
+                    position: latLonPosition,
                     icon: {
                         url: candidatePhotoURL
                     },             
@@ -78,6 +127,69 @@ function initMap(){
                 });
 
                 markerHolder.push(marker)
+
+
+
+
+
+
+
+
+
+
+                // console.log('This function runs _ times')
+
+                // function codeAddress() {
+                //     var address = JSON.stringify(allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
+                //     geocoder.geocode( { 'address': address}, function(results, status) {
+                //       if (status == 'OK') {
+                //         console.log('Dropped a marker on map')
+                //         map.setCenter(results[0].geometry.location);
+                //         var marker = new google.maps.Marker({
+                //             map: map,
+                //             position: results[0].geometry.location
+                //         });
+                //       } else {
+                //         console.log('Geocode was not successful for the following reason: ' + status);
+                //       }
+                //     });
+                //   }
+                //   setTimeout(codeAddress(), 5000 )
+                // codeAddress()
+
+
+
+
+
+
+                // let addressPosition = '';
+                // let codeAddress = function(){
+                //     let geocoder = new google.maps.Geocoder();
+                //     let address = '107 E Main St, Bradford, NH, 03221';
+                //     // (allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
+                //     let geocode = geocoder.geocode({'address': address});
+                //     return geocode;
+                // }
+
+                // // let addNoGeo = geocoder.geocode({'address': '107 E Main St, Bradford, NH, 03221'});
+                // let addNoGeo = '107 E Main St, Bradford, NH, 03221';
+
+
+                // // console.log(allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
+                // console.log(codeAddress())
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 // marker.setMap(map);
@@ -95,8 +207,27 @@ function initMap(){
     }
 
     //calls the function setMapOnAll(), iterating through array markerHolder to populate map w/ markers
-    // setMapOnAll(map);
+    setMapOnAll(map);
 
+
+    //toggle for all candidates
+    const selectAll = document.getElementById('selectAll')
+    selectAll.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            // console.log('checked');
+            for(var i = 0; i < markerHolder.length; i++){
+                 markerHolder[i].setMap(map)
+            }
+
+        } else {
+            // console.log('not checked');
+            // clearMarkers()
+            for(var i = 0; i < markerHolder.length; i++){
+                markerHolder[i].setMap(null)
+            
+            }
+        }
+    })
 
     //toggle for Yang map markers (on and off)
     const yangCheckbox  = document.getElementById('seeYangEvents')
@@ -209,79 +340,85 @@ function initMap(){
         }
     })
 
+    //toggle for Harris map markers (on and off)
+    const harrisCheckbox = document.getElementById('seeHarrisEvents')
+    harrisCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Harris100px.png'){
+                    markerHolder[i].setMap(map)
+                }
+            }
 
-      
+        } else {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Harris100px.png'){
+                    markerHolder[i].setMap(null)
+                }
+            }
+        }
+    })
+
+    //toggle for klobuchar map markers (on and off)
+    const klobucharCheckbox = document.getElementById('seeKlobucharEvents')
+    klobucharCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Klobuchar100px.png'){
+                    markerHolder[i].setMap(map)
+                }
+            }
+
+        } else {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Klobuchar100px.png'){
+                    markerHolder[i].setMap(null)
+                }
+            }
+        }
+    })
+
+    //toggle for Booker map markers (on and off)
+    const bookerCheckbox = document.getElementById('seeBookerEvents')
+    bookerCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Booker100px.png'){
+                    markerHolder[i].setMap(map)
+                }
+            }
+
+        } else {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Booker100px.png'){
+                    markerHolder[i].setMap(null)
+                }
+            }
+        }
+    })
+
+    //toggle for Steyer map markers (on and off)
+    const steyerCheckbox = document.getElementById('seeSteyerEvents')
+    steyerCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Steyer100px.png'){
+                    markerHolder[i].setMap(map)
+                }
+            }
+
+        } else {
+            for(var i = 0; i < markerHolder.length; i++){
+                if(markerHolder[i].icon.url === 'candidatePhotos/Steyer100px.png'){
+                    markerHolder[i].setMap(null)
+                }
+            }
+        }
+    })
 
 
 
 
-
-
-
-
-
-    // Sets the map on all markers in the array.
-    // function setMapOnAll(marker) {
-    //     for (var i = 0; i < markerHolder.length; i++) {
-    //         markerHolder[i].setMap(marker);
-    //     }
-    // }
-
-
-    // Removes the markers from the map, but keeps them in the array.
-    // function clearMarkers() {
-    //     setMapOnAll(null);
-    // }
-
-    // // Shows any markers currently in the array.
-    // function showMarkers() {
-    //     setMapOnAll(map);
-    // }
-    
-
-    
-
-
-
-        // for(var i = 0; i < markerHolder.length; i++){
-        //     // console.log(markerHolder[i].icon.url)
-        //     if(markerHolder[i].icon.url === "candidatePhotos/Warren100px.png"){
-        //         markerHolder[i].visible = false;
-                // location.reload();  This doesn't work as intended.
-                // markerHolder[i].hide();
-                // console.log(markerHolder[i].visible)
-        //     }
-        // }
-        // console.log('the Warren checkbox is working');
-        // console.log(markerHolder.length)
-        // markerHolder.toggle();
-        // x.hide()
-    // }
-    // let toggleYang = document.getElementById('seeYangEvents').onclick = function(){
-    //     console.log('the Yang checkbox is working')
-    // }
-    // let toggleBiden = document.getElementById('seeBidenEvents').onclick = function(){
-    //     console.log('the Biden checkbox is working')
-    // }
-    // let toggleButtigieg = document.getElementById('seeButtigiegEvents').onclick = function(){
-    //     console.log('the Buttigieg checkbox is working')
-    // }
-    // let toggleSanders = document.getElementById('seeSandersEvents').onclick = function(){
-    //     console.log('the Sanders checkbox is working')
-    // }
-
-
-    
-
-
-
-
-
-
-    //the below is not working yet
-    // let toggleState = document.getElementsByName('states').onclick = function(){
-    //     console.log('states')
-    // }
 }
 
 
