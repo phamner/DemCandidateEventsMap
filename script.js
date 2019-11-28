@@ -28,52 +28,38 @@ function initMap(){
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Elizabeth Warren'){
                     candidatePhotoURL = 'candidatePhotos/Warren100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Andrew Yang'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Andrew Yang'){
                     candidatePhotoURL = 'candidatePhotos/Yang100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Joe Biden'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Joe Biden'){
                     candidatePhotoURL = 'candidatePhotos/Biden100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Pete Buttigieg'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Pete Buttigieg'){
                     candidatePhotoURL = 'candidatePhotos/Buttigieg100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Bernie Sanders'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Bernie Sanders'){
                     candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Kamala Harris'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Kamala Harris'){
                     candidatePhotoURL = 'candidatePhotos/Harris100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Amy Klobuchar'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Amy Klobuchar'){
                     candidatePhotoURL = 'candidatePhotos/Klobuchar100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Cory Booker'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Cory Booker'){
                     candidatePhotoURL = 'candidatePhotos/Booker100px.png'
                 }
-                if(allEvents[candidate][0]['organization']['candidate_name'] === 'Tom Steyer'){
+                else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Tom Steyer'){
                     candidatePhotoURL = 'candidatePhotos/Steyer100px.png'
                 }
                 else {
-                    // console.log(allEvents[candidate][0]['organization']['candidate_name'])
+                    console.log('No Candidate Found')
                 }
+
 
                 if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
                     continue;
                 }
-
-                //https://www.mobilize.us/joebiden/event/124222/
-                //https://www.mobilize.us/amyklobuchar/event/126637/
-                //https://events.elizabethwarren.com/event/156097/
-
-                //https://events.tomsteyer.com/event/162762/
-                //https://www.mobilize.us/peteforamerica/event/149054/
-                //https://www.mobilize.us/yang2020/event/165367/
-            
-                // let standardEventURL = 'https://www.mobilize.us/'+(allEvents[candidate][i].organization.candidate_name).toLowerCase().replace(/\s/g,'')+'/event/'+(allEvents[candidate][i].id)+'/';  
-                // console.log(standardEventURL)
-
-
-
-
 
                 //This creates the unique event URL for the candidate in question to be added to each contentString.  
                 let eventURLString = '';
@@ -103,7 +89,6 @@ function initMap(){
                 `From ${allEvents[candidate][i].times[0].start} until ${allEvents[candidate][i].times[0].end}<br><br>`+
                 `${allEvents[candidate][i].location_name}, ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allEvents[candidate][i].description}<br><br>`+
-                // `${eventURLString}<br><br>`+
                 `<a target="_blank" href=${eventURLString}>Click Here to Learn More</a>`+
 
                 '</div>'+
@@ -114,6 +99,7 @@ function initMap(){
                     content: contentString
                 });
 
+                //Adds a marker for each event to map
                 let latLonPosition = {lat: allEvents[candidate][i].lat, lng: allEvents[candidate][i].lon};
                 let marker = new google.maps.Marker({
                     position: latLonPosition,
@@ -122,6 +108,7 @@ function initMap(){
                     },             
                 });
 
+                //Allows 
                 marker.addListener('click', function() {
                     infoWindow.open(map, marker);
                 });
