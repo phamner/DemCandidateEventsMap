@@ -10,20 +10,6 @@ let currentMonthDay = currentDateYearFirst.slice(5);
 let currentDate = currentMonthDay + '/' + currentYear
 
 
-
-// console.log(currentDate)
-// console.log(currentMonthDay)
-
-
-
-
-// function toggleAllCanidates(){
-//     if(document.getElementById('selectAll').checked = true){
-//         document.getElementById('seeYangEvents').checked = true
-//     }
-// }
-
-
 $(function() {
     $('input[name="daterange"]').daterangepicker({
         opens: 'left'
@@ -103,43 +89,36 @@ function initMap(){
                     continue;
                 }
 
-
-                //https://www.mobilize.us/kamalaharris/event/132893/
-                //https://www.mobilize.us/corybooker/event/164249/
-
                 //This creates the unique event URL for the candidate in question to be added to each contentString.  
                 let eventURLString = '';
                 let candidateNameNoSpaces = (allEvents[candidate][i].organization.candidate_name).toLowerCase().replace(/\s/g,'');
             
                 if(allEvents[candidate][i].organization.name.includes('Bernie')){
-                    // https://events.berniesanders.com/event/135597/
                     eventURLString = 'https://events.berniesanders.com/event/' + allEvents[candidate][i].id + '/'
-                    // console.log('hi bernie!')
                 }
 
                 else if(allEvents[candidate][i].organization.candidate_name === 'Elizabeth Warren' || allEvents[candidate][i].organization.candidate_name === 'Joe Biden' || allEvents[candidate][i].organization.candidate_name === 'Amy Klobuchar'){
-                    console.log('this is for ' + allEvents[candidate][i].organization.candidate_name)
+                    // console.log('this is for ' + allEvents[candidate][i].organization.candidate_name)
                     eventURLString = 'https://www.mobilize.us/' + candidateNameNoSpaces + '/event/' + allEvents[candidate][i].id + '/';  
                 } 
                 else if(allEvents[candidate][i].organization.name.includes('Kamala Harris') || allEvents[candidate][i].organization.slug.slice(0,6) === 'kamala'){
-                    console.log('this is for Kamala')
+                    // console.log('this is for Kamala')
                     eventURLString = 'https://www.mobilize.us/kamalaharris/event/' + allEvents[candidate][i].id + '/'
                 }
                 else if(allEvents[candidate][i].organization.candidate_name === 'Cory Booker' || allEvents[candidate][i].organization.slug === 'corybooker' || allEvents[candidate][i].organization.name.slice(0,4) === 'Cory'){
-                    console.log('this is for cory booker')
+                    // console.log('this is for cory booker')
                     eventURLString = 'https://www.mobilize.us/corybooker/event/' + allEvents[candidate][i].id + '/';
                 }
                 else if (allEvents[candidate][i].organization.candidate_name === 'Tom Steyer'){
-                    console.log('this is for tom steyer')
+                    // console.log('this is for tom steyer')
                     eventURLString = 'https://events.' + candidateNameNoSpaces + '.com/event/' + allEvents[candidate][i].id + '/';
                 }
                 else if (allEvents[candidate][i].organization.candidate_name === 'Pete Buttigieg'){
-                    console.log('this is for mayor pete')
+                    // console.log('this is for mayor pete')
                     eventURLString = 'https://www.mobilize.us/peteforamerica/event/' +  allEvents[candidate][i].id + '/';
                 }
                 else if (allEvents[candidate][i].organization.candidate_name === 'Andrew Yang'){
-                    console.log('this is for andrew yang')
-
+                    // console.log('this is for andrew yang')
                     eventURLString = 'https://www.mobilize.us/yang2020/event/' +  allEvents[candidate][i].id + '/';
                 }
 
@@ -169,7 +148,6 @@ function initMap(){
                 `${allEvents[candidate][i].location_name}, ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allEvents[candidate][i].description}<br><br>`+
                 `<a target="_blank" href=${eventURLString}>Click Here to Learn More</a>`+
-
                 '</div>'+
                 '</div>';
                 
@@ -247,22 +225,6 @@ function initMap(){
                 // // console.log(allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
                 // console.log(codeAddress())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                // marker.setMap(map);
-
                 
             }
         }
@@ -287,13 +249,9 @@ function initMap(){
             for(var i = 0; i < markerHolder.length; i++){
                  markerHolder[i].setMap(map)
             }
-
         } else {
-            // console.log('not checked');
-            // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 markerHolder[i].setMap(null)
-            
             }
         }
     })
@@ -302,16 +260,12 @@ function initMap(){
     const yangCheckbox  = document.getElementById('seeYangEvents')
     yangCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Yang100px.png'){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
-            // console.log('not checked');
-            // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Yang100px.png'){
                     markerHolder[i].setMap(null)
@@ -325,16 +279,12 @@ function initMap(){
     const warrenCheckbox = document.getElementById('seeWarrenEvents')
     warrenCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Warren100px.png'){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
-            // console.log('not checked');
-            // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Warren100px.png'){
                     markerHolder[i].setMap(null)
@@ -347,16 +297,12 @@ function initMap(){
     const bidenCheckbox = document.getElementById('seeBidenEvents')
     bidenCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Biden100px.png'){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
-            // console.log('not checked');
-            // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Biden100px.png'){
                     markerHolder[i].setMap(null)
@@ -369,16 +315,12 @@ function initMap(){
     const buttigiegCheckbox = document.getElementById('seeButtigiegEvents')
     buttigiegCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Buttigieg100px.png'){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
-            // console.log('not checked');
-            // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Buttigieg100px.png'){
                     markerHolder[i].setMap(null)
@@ -391,16 +333,12 @@ function initMap(){
     const sandersCheckbox = document.getElementById('seeSandersEvents')
     sandersCheckbox.addEventListener('change', (event) => {
         if (event.target.checked) {
-            // console.log('checked');
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Sanders100px.png'){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
-            // console.log('not checked');
-            // clearMarkers()
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Sanders100px.png'){
                     markerHolder[i].setMap(null)
@@ -418,7 +356,6 @@ function initMap(){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Harris100px.png'){
@@ -437,7 +374,6 @@ function initMap(){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Klobuchar100px.png'){
@@ -456,7 +392,6 @@ function initMap(){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Booker100px.png'){
@@ -475,7 +410,6 @@ function initMap(){
                     markerHolder[i].setMap(map)
                 }
             }
-
         } else {
             for(var i = 0; i < markerHolder.length; i++){
                 if(markerHolder[i].icon.url === 'candidatePhotos/Steyer100px.png'){
@@ -485,12 +419,3 @@ function initMap(){
         }
     })
 }
-
-
-
-
-
-
-
-
-  
