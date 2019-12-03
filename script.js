@@ -9,22 +9,8 @@ let currentYear = currentDateYearFirst.slice(0,4);
 let currentMonthDay = currentDateYearFirst.slice(5);
 let currentDate = currentMonthDay + '/' + currentYear
 
-
-$(function() {
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
-    }, function(start, end, label) {
-        let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
-        console.log("A new date selection was made: " + dateRange);
-    });
-});
-  
-
-
-
-
-
 function initMap(){
+    let markerHolder = []; 
 
     // The location of DC
     let washingtonDC = {lat: 38.8977, lng: -77.036560};
@@ -37,8 +23,7 @@ function initMap(){
         {zoom: 4, center: centerOfUSA},
     );
 
-    let markerHolder = []; 
-    geocoder = new google.maps.Geocoder();
+    // geocoder = new google.maps.Geocoder();
 
 
     
@@ -49,45 +34,57 @@ function initMap(){
 
     let addMarkersCreateArray = function (){
         for(var candidate in allEvents){
+
+
             for(var i = 0; i < allEvents[candidate].length; i++){
                 let candidatePhotoURL = '';
                 
                 //checks which candidate we are looking at, and selects their photo to use as the marker
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Elizabeth Warren'){
-                    candidatePhotoURL = 'candidatePhotos/Warren100px.png'
+                    console.log('Elizabeth Warren');
+                    candidatePhotoURL = 'candidatePhotos/Warren100px.png';
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Andrew Yang'){
+                    console.log('Andrew Yang');
                     candidatePhotoURL = 'candidatePhotos/Yang100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Joe Biden'){
+                    console.log('Joe Biden');
                     candidatePhotoURL = 'candidatePhotos/Biden100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Pete Buttigieg'){
+                    console.log('Pete Buttigieg');
                     candidatePhotoURL = 'candidatePhotos/Buttigieg100px.png'
                 }
                 else if(allEvents[candidate][i].organization.name.includes('Bernie')){
+                    console.log('Bernie Sanders');
                     candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
                 }
                 else if(allEvents[candidate][0]['organization'].name.slice(0, 13) === 'Kamala Harris'){
+                    console.log('Kamla Haarris');
                     candidatePhotoURL = 'candidatePhotos/Harris100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Amy Klobuchar'){
+                    console.log('Amy Klobuchar');
                     candidatePhotoURL = 'candidatePhotos/Klobuchar100px.png'
                 }
                 else if(allEvents[candidate][0]['organization'].slug === 'corybooker'){
+                    console.log('cory booker');
                     candidatePhotoURL = 'candidatePhotos/Booker100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Tom Steyer'){
+                    console.log('Tom Steyer');
                     candidatePhotoURL = 'candidatePhotos/Steyer100px.png'
                 }
                 else {
                     console.log('No Candidate Found')
                 }
-
-
                 if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
                     continue;
                 }
+
+
+
 
                 //This creates the unique event URL for the candidate in question to be added to each contentString.  
                 let eventURLString = '';
@@ -122,6 +119,10 @@ function initMap(){
                     eventURLString = 'https://www.mobilize.us/yang2020/event/' +  allEvents[candidate][i].id + '/';
                 }
 
+
+
+
+                //assigns the correct title for each infoWindow popup (one per marker)
                 let titleForPopup = '';
                 if(allEvents[candidate][0].organization.candidate_name){
                     titleForPopup = allEvents[candidate][0].organization.candidate_name;
@@ -136,6 +137,8 @@ function initMap(){
                     titleForPopup = 'Cory Booker'
                 }
 
+
+
                 //This is the text used in each infoWindow.
                 let contentString = 
                 '<div id="content">'+
@@ -144,8 +147,9 @@ function initMap(){
                 `<h1 id="firstHeading" class="firstHeading">${titleForPopup}</h1>`+
                 '<div id="bodyContent">'+
                 `<p><b></b>${allEvents[candidate][i].name}<br><br>`+
-                `From ${allEvents[candidate][i].times[0].start} until ${allEvents[candidate][i].times[0].end}<br><br>`+
-                `${allEvents[candidate][i].location_name}, ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
+                `Date: ${allEvents[candidate][i].times[0].start.slice(5, 10)}-${allEvents[candidate][i].times[0].start.slice(0, 4)}<br>`+
+                `Location: ${allEvents[candidate][i].location_one_line}<br><br>`+
+                // ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allEvents[candidate][i].description}<br><br>`+
                 `<a target="_blank" href=${eventURLString}>Click Here to Learn More</a>`+
                 '</div>'+
@@ -159,71 +163,22 @@ function initMap(){
                 //Adds a marker for each event to map
                 let latLonPosition = {lat: allEvents[candidate][i].lat, lng: allEvents[candidate][i].lon};
                 if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
-                    console.log(allEvents[candidate][i])
+                    console.log('ERROR: ' + allEvents[candidate][i] + ' has no lat or lon')
                 }
                 let marker = new google.maps.Marker({
                     position: latLonPosition,
                     icon: {
                         url: candidatePhotoURL
-                    },             
+                    },
                 });
 
-                //Allows 
+                //Allows user to open infoWindow popups with more info when they click a candidate's marker
                 marker.addListener('click', function() {
+                    console.log(infoWindow)
                     infoWindow.open(map, marker);
                 });
 
                 markerHolder.push(marker)
-
-
-
-
-
-
-
-
-
-
-                // console.log('This function runs _ times')
-
-                // function codeAddress() {
-                //     var address = JSON.stringify(allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
-                //     geocoder.geocode( { 'address': address}, function(results, status) {
-                //       if (status == 'OK') {
-                //         console.log('Dropped a marker on map')
-                //         map.setCenter(results[0].geometry.location);
-                //         var marker = new google.maps.Marker({
-                //             map: map,
-                //             position: results[0].geometry.location
-                //         });
-                //       } else {
-                //         console.log('Geocode was not successful for the following reason: ' + status);
-                //       }
-                //     });
-                //   }
-                //   setTimeout(codeAddress(), 5000 )
-                // codeAddress()
-
-
-
-
-
-
-                // let addressPosition = '';
-                // let codeAddress = function(){
-                //     let geocoder = new google.maps.Geocoder();
-                //     let address = '107 E Main St, Bradford, NH, 03221';
-                //     // (allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
-                //     let geocode = geocoder.geocode({'address': address});
-                //     return geocode;
-                // }
-
-                // // let addNoGeo = geocoder.geocode({'address': '107 E Main St, Bradford, NH, 03221'});
-                // let addNoGeo = '107 E Main St, Bradford, NH, 03221';
-
-
-                // // console.log(allEvents[candidate][i]['city'] + ', ' + allEvents[candidate][i]['state']);
-                // console.log(codeAddress())
 
                 
             }
@@ -241,181 +196,117 @@ function initMap(){
     setMapOnAll(map);
 
 
-    //toggle for all candidates
+    // toggle for all candidates (this is better sytactically then the toggles below.)
     const selectAll = document.getElementById('selectAll')
     selectAll.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            // console.log('checked');
-            for(var i = 0; i < markerHolder.length; i++){
-                 markerHolder[i].setMap(map)
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
+        for(var i = 0; i < markerHolder.length; i++){
+            if (event.target.checked) {
+                // console.log('checked');
+                markerHolder[i].setMap(map)
+            } else {
                 markerHolder[i].setMap(null)
             }
         }
     })
 
-    //toggle for Yang map markers (on and off)
-    const yangCheckbox  = document.getElementById('seeYangEvents')
-    yangCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Yang100px.png'){
-                    markerHolder[i].setMap(map)
-                }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Yang100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
+    const candidates = {
+        seeYangEvents : {
+            icon: 'candidatePhotos/Yang100px.png'
+        },
+        seeWarrenEvents : {
+            icon: 'candidatePhotos/Warren100px.png'
+        },
+        seeBidenEvents : {
+            icon: 'candidatePhotos/Biden100px.png'
+        },
+        seeButtigiegEvents : {
+            icon: 'candidatePhotos/Buttigieg100px.png'
+        },
+        seeSandersEvents : {
+            icon: 'candidatePhotos/Sanders100px.png'
+        },
+        seeHarrisEvents : {
+            icon: 'candidatePhotos/Harris100px.png'
+        },
+        seeKlobucharEvents : {
+            icon: 'candidatePhotos/Klobuchar100px.png'
+        },        
+        seeBookerEvents : {
+            icon: 'candidatePhotos/Booker100px.png'
+        },
+        seeSteyerEvents : {
+            icon: 'candidatePhotos/Steyer100px.png'
         }
-    })
+    }
+
+    for(var i = 0; i < document.querySelectorAll('.candidate-check').length; i++){
+        document.querySelectorAll('.candidate-check')[i].addEventListener('change', function(event){
+            let canidateId = event.target.id // somehow get the id of the element that was checked/unchecked
+            let icon = candidates[canidateId].icon
+
+            for(var j = 0; j < markerHolder.length; j++){
+                if(markerHolder[j].icon.url === icon){
+                    if (event.target.checked) {
+                        markerHolder[j].setMap(map)
+                    } 
+                    else {
+                        markerHolder[j].setMap(null)
+
+                    }
+                }
+            }
+        })
+    }
 
 
-    //toggle for Warren map markers (on and off)
-    const warrenCheckbox = document.getElementById('seeWarrenEvents')
-    warrenCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Warren100px.png'){
-                    markerHolder[i].setMap(map)
-                }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Warren100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
 
-    //toggle for Biden map markers (on and off)
-    const bidenCheckbox = document.getElementById('seeBidenEvents')
-    bidenCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Biden100px.png'){
-                    markerHolder[i].setMap(map)
-                }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Biden100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
 
-    //toggle for Buttigieg map markers (on and off)
-    const buttigiegCheckbox = document.getElementById('seeButtigiegEvents')
-    buttigiegCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Buttigieg100px.png'){
-                    markerHolder[i].setMap(map)
-                }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Buttigieg100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
 
-    //toggle for Sanders map markers (on and off)
-    const sandersCheckbox = document.getElementById('seeSandersEvents')
-    sandersCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Sanders100px.png'){
-                    markerHolder[i].setMap(map)
-                }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Sanders100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
 
-    //toggle for Harris map markers (on and off)
-    const harrisCheckbox = document.getElementById('seeHarrisEvents')
-    harrisCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Harris100px.png'){
-                    markerHolder[i].setMap(map)
+    // //Hides marker based on the calendar dates
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
+            var getDaysArray = function(start, end) {
+                for(var arr=[],dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
+                    arr.push(new Date(dt));
                 }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Harris100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
+                return arr;
+            };
+            var daylist = getDaysArray(new Date(start),new Date(end));
+            let fullListOfSelectedDays = daylist.map((v)=>v.toISOString().slice(0,10));
 
-    //toggle for klobuchar map markers (on and off)
-    const klobucharCheckbox = document.getElementById('seeKlobucharEvents')
-    klobucharCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Klobuchar100px.png'){
-                    markerHolder[i].setMap(map)
-                }
-            }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Klobuchar100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
+            //loop through full data set and show only events that fall within the range of fullListOfSelectedDays.
 
-    //toggle for Booker map markers (on and off)
-    const bookerCheckbox = document.getElementById('seeBookerEvents')
-    bookerCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
             for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Booker100px.png'){
-                    markerHolder[i].setMap(map)
-                }
+                markerHolder[i].setMap(null)
             }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Booker100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
 
-    //toggle for Steyer map markers (on and off)
-    const steyerCheckbox = document.getElementById('seeSteyerEvents')
-    steyerCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Steyer100px.png'){
-                    markerHolder[i].setMap(map)
+
+
+            for(var candidate in allEvents){
+                for(var i = 0; i < allEvents[candidate].length; i++){
+                    for(var j = 0; j < fullListOfSelectedDays.length; j++){
+                        if(allEvents[candidate][i].times[0].start.slice(0,10) === fullListOfSelectedDays[j]){
+                            markerHolder[i].setMap(map)
+                            // console.log(allEvents[candidate][i].times[0].start.slice(0,10) + ' should be equal to ' + fullListOfSelectedDays[j])
+                            console.log('SHOULD BE VISIBLE ' + allEvents[candidate][i].name, allEvents[candidate][i].times[0].start.slice(0,10))
+
+                            // console.log(allEvents[candidate][i] + ':  This event should be visible')
+                        }else{
+                            markerHolder[i].setMap(null)
+                            // console.log(allEvents[candidate][i].times[0].start.slice(0,10) + ' should NOT be equal to ' + fullListOfSelectedDays[j])
+                            // console.log('SHOULD NOT BE VISIBLE ' + allEvents[candidate][i].name, allEvents[candidate][i].times[0].start.slice(0,10))
+
+
+                            // console.log(allEvents[candidate][i] + ':  This event should be hidden')
+                        }
+                    }
                 }
             }
-        } else {
-            for(var i = 0; i < markerHolder.length; i++){
-                if(markerHolder[i].icon.url === 'candidatePhotos/Steyer100px.png'){
-                    markerHolder[i].setMap(null)
-                }
-            }
-        }
-    })
+        });
+    });
+
 }
