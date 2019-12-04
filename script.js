@@ -32,9 +32,38 @@ let candidateIsVisible = {
     'tomSteyer': false,
 }
 
-let dateRangeHolder = [];
+let dateRangeHolder = [];  //[new Date(), new Date()]
+
 
 function initMap(){
+    window.mapReady = true;
+    if (window.dataLoaded === true) {
+        runApp()
+    }
+}
+
+window.dataReady = function (){
+    window.dataLoaded = true;
+    if (window.mapReady === true) {
+        runApp()
+    }
+
+
+}
+
+function runApp(){
+    // console.log(window.fetchedData); // all the canidates data in an array same order as you fetched it in
+    const allData = window.fetchedData;
+    // console.log(allData[0].data[0])
+    // console.log(allData[6].data[0])
+    // sponser.candidate_name
+
+
+
+
+
+
+
 
     // The location of DC
     let washingtonDC = {lat: 38.8977, lng: -77.036560};
@@ -47,7 +76,62 @@ function initMap(){
         {zoom: 4, center: centerOfUSA},
     );
 
+    // let candidateIsVisible = {
+    //     'kamalaHarris': false,
+    //     'coryBooker': false,
+    // }
     
+
+
+    let lookThroughEachEvent = function(){
+        for(var i = 0; i < allData.length; i++){
+            for(var j = 0; j < allData[i].data.length; j++){
+                let candidatePhotoURL = '';
+                // if(allData[i].data[j])
+                if(allData[i].data[j].sponsor.candidate_name === 'Elizabeth Warren'){
+                    candidatePhotoURL = 'candidatePhotos/Warren100px.png';
+                } 
+                else if(allData[i].data[j].sponsor.candidate_name === 'Andrew Yang'){
+                    candidatePhotoURL = 'candidatePhotos/Yang100px.png'
+                }
+                else if(allData[i].data[j].sponsor.candidate_name === 'Joe Biden'){
+                    candidatePhotoURL = 'candidatePhotos/Biden100px.png'
+                }
+                else if(allData[i].data[j].sponsor.candidate_name === 'Pete Buttigieg'){
+                    candidatePhotoURL = 'candidatePhotos/Buttigieg100px.png'
+                }
+                else if(allData[i].data[j].sponsor.candidate_name === 'Amy Klobuchar'){
+                    candidatePhotoURL = 'candidatePhotos/Klobuchar100px.png'
+                }
+                else if(allData[i].data[j].sponsor.candidate_name === 'Tom Steyer'){
+                    candidatePhotoURL = 'candidatePhotos/Steyer100px.png'
+                }
+                else if(allData[i].data[j].sponsor.event_feed_url.includes('sanders')){
+                    candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
+                }
+                else if(allData[i].data[j].sponsor.slug === 'corybooker'){
+                    candidatePhotoURL = 'candidatePhotos/Booker100px.png'
+                }
+
+                //need to add Booker and Harris (?)
+                else{
+                    console.log('No Candidate Found')
+                }
+            }
+        }
+    }
+
+    lookThroughEachEvent();
+    
+
+
+
+
+
+
+
+
+
     //Each function loops through one of the candidates 
     //and populates map with custom marker
     let addMarkersCreateArray = function (){
@@ -138,21 +222,6 @@ function initMap(){
                 }
 
 
-                // [
-
-                //     "elizabethwarren.com",
-                //     "yang2020",
-                //     "joebiden",
-                //     "peteforamerica",
-                //     "https://events.berniesanders.com/event/",
-                //     "kamalaharris",
-                //     "amyklobuchar",
-                //     "corybooker",
-                //     "https://events.tomsteyer.com/event/"
-
-                // ]
- 
-
 
 
 
@@ -227,8 +296,23 @@ function initMap(){
     addMarkersCreateArray();
 
 
+
     let updateMap = function(map){
         for(var i = 0; i < markerHolder.length; i++){
+            // let eventDate = fullListOfEvents[i].times[0].start.slice(0,10);
+            //must make eventDate an actual date that can be compared to firstDateFromCalendar & secondDateFromCalendar
+            let eventDate = new Date(fullListOfEvents[i].times[0].start)
+
+
+            let firstDateFromCalendar = dateRangeHolder[0];
+            let secondDateFromCalendar = dateRangeHolder[1];
+
+
+            if (eventDate <= firstDateFromCalendar || eventDate >= secondDateFromCalendar) {
+                markerHolder[i].marker.setMap(null)
+                continue;
+            }
+
             if(markerHolder[i].candidate === "warrenEvents" && candidateIsVisible['elizabethWarren'] === true){
                 markerHolder[i].marker.setMap(map)
             }
@@ -260,27 +344,8 @@ function initMap(){
                 // console.log('fail case: ', markerHolder[i])
                 markerHolder[i].marker.setMap(null)
             }
-            // markerHolder[i].setMap(map);
         }
     }
-    // updateMap(map);    call this on click
-
-    // allEvents[candidate][i].organization.name.includes('Bernie'))
-    // markerHolder[157].event.organization.name
-
-
-    //piopulates map with every single event.  We need to delete this eventually and make
-   //iut check dateRangeHolder and candidateIsVisible.
-    // function setMapOnAll(map) {
-    //     for (var i = 0; i < markerHolder.length; i++) {
-    //         markerHolder[i].setMap(map);
-    //         checkedAndDateStatus[i] = {
-    //             checked: false,
-    //             date: fullListOfEvents[i].times[0].start.slice(0,10)
-    //         };
-
-    //     }
-    // }
 
     //calls the function setMapOnAll(), iterating through array markerHolder to populate map w/ markers
     // setMapOnAll(map);
@@ -331,49 +396,40 @@ function initMap(){
             }
             updateMap(map)
 
-
                 // //Hides marker based on the calendar dates
-            $(function() {
-                $('input[name="daterange"]').daterangepicker({
-                    opens: 'left'
-                }, function(start, end, label) {
-                    let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
-                    var getDaysArray = function(start, end) {
-                        for(var arr=[],dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
-                            arr.push(new Date(dt));
-                        }
-                        return arr;
-                    };
-                    var daylist = getDaysArray(new Date(start),new Date(end));
-                    let fullListOfSelectedDays = daylist.map((v)=>v.toISOString().slice(0,10));
-                    let firstDay = fullListOfSelectedDays[0];
-                    let lastDay = fullListOfSelectedDays[fullListOfSelectedDays.length - 1];
-                    dateRangeHolder.push(firstDay);
-                    dateRangeHolder.push(lastDay)
-
-
-
-
-                    //loop through full data set and show only events that fall within the range of fullListOfSelectedDays.
-                    for(var i = 0; i < fullListOfEvents.length; i++){
-                        let eventDate = fullListOfEvents[i].times[0].start.slice(0,10);
-                        if((eventDate < lastDay && eventDate > firstDay) && candidateIsVisible[candidateId] === true){
-                            markerHolder[i].marker.setMap(map)
-                            // console.log(eventDate + ' falls within the range of ' + firstDay + ' - ' + lastDay);
-                        }
-                        else{
-                            markerHolder[i].marker.setMap(null)
-                            // console.log(eventDate + 'DOES NOT fall within the range of ' + firstDay + ' - ' + lastDay);
-
-
-                        }
-                        // console.log(eventDate, firstDay, lastDay);
-                    }
-
-                });
-            });
+            
         })
     }
+
+
+
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
+            var getDaysArray = function(start, end) {
+                for(var arr=[],dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
+                    arr.push(new Date(dt));
+                }
+                return arr;
+            };
+            var daylist = getDaysArray(new Date(start),new Date(end));
+            let fullListOfSelectedDays = daylist.map((v)=>v.toISOString().slice(0,10));
+            function clearDateRangeHolder(){
+                dateRangeHolder = []
+            };
+            clearDateRangeHolder();
+            dateRangeHolder.push(daylist[0]);
+            dateRangeHolder.push(daylist[daylist.length - 1]);
+            // console.log(dateRangeHolder)
+            updateMap(map)
+            
+        });
+    });
+
+
+
 
 
 
@@ -425,15 +481,4 @@ function initMap(){
         }
         updateMap(map)
     })
-
-
-
-
-
-
-
-
-    //onclicl, loop through candidateIsVisible and dateRangeHolder
-    //if candidate is visible, display it, else do not
-    //loop through all events.  If the date doesn't fall within range, hide it.
 }
