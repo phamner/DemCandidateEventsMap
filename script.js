@@ -1,7 +1,12 @@
 window.onload = onPageLoad();
 
+
 function onPageLoad() {
-  document.getElementById("selectAll").checked = true;
+  document.getElementById("selectAll").checked = false;
+//   document.getElementById("andrewYang").checked = true;
+
+//   let candidateCheckBoxes = document.getElementsByClassName("candidate-check");
+//   candidateCheckBoxes.forEach(element => element.checked = true);
 }
 
 let currentDateYearFirst = new Date().toJSON().slice(0,10).replace(/-/g,'/');
@@ -9,8 +14,27 @@ let currentYear = currentDateYearFirst.slice(0,4);
 let currentMonthDay = currentDateYearFirst.slice(5);
 let currentDate = currentMonthDay + '/' + currentYear
 
+let fullListOfEvents = [];
+let markerHolder = []; 
+let checkedAndDateStatus = []
+
+
+let candidateIsVisible = {
+    'allCandidates' : true,
+    'andrewYang': false,
+    'elizabethWarren': false,
+    'joeBiden': false,
+    'peteButtigieg': false,
+    'bernieSanders': false,
+    'kamalaHarris': false,
+    'amyKlobuchar': false,
+    'coryBooker': false,
+    'tomSteyer': false,
+}
+
+let dateRangeHolder = [];
+
 function initMap(){
-    let markerHolder = []; 
 
     // The location of DC
     let washingtonDC = {lat: 38.8977, lng: -77.036560};
@@ -23,15 +47,9 @@ function initMap(){
         {zoom: 4, center: centerOfUSA},
     );
 
-    // geocoder = new google.maps.Geocoder();
-
-
     
-    //Each function loops through one of the candidates (organized alphabetically) 
+    //Each function loops through one of the candidates 
     //and populates map with custom marker
-    //all are currently using the function skeleton from Andrew Yang.  Each function must be
-    //re-writen, and the data about their travel must be input to data.js
-
     let addMarkersCreateArray = function (){
         for(var candidate in allEvents){
 
@@ -41,43 +59,43 @@ function initMap(){
                 
                 //checks which candidate we are looking at, and selects their photo to use as the marker
                 if(allEvents[candidate][0]['organization']['candidate_name'] === 'Elizabeth Warren'){
-                    console.log('Elizabeth Warren');
+                    // console.log('Elizabeth Warren');
                     candidatePhotoURL = 'candidatePhotos/Warren100px.png';
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Andrew Yang'){
-                    console.log('Andrew Yang');
+                    // console.log('Andrew Yang');
                     candidatePhotoURL = 'candidatePhotos/Yang100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Joe Biden'){
-                    console.log('Joe Biden');
+                    // console.log('Joe Biden');
                     candidatePhotoURL = 'candidatePhotos/Biden100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Pete Buttigieg'){
-                    console.log('Pete Buttigieg');
+                    // console.log('Pete Buttigieg');
                     candidatePhotoURL = 'candidatePhotos/Buttigieg100px.png'
                 }
                 else if(allEvents[candidate][i].organization.name.includes('Bernie')){
-                    console.log('Bernie Sanders');
+                    // console.log('Bernie Sanders');
                     candidatePhotoURL = 'candidatePhotos/Sanders100px.png'
                 }
                 else if(allEvents[candidate][0]['organization'].name.slice(0, 13) === 'Kamala Harris'){
-                    console.log('Kamla Haarris');
+                    // console.log('Kamla Haarris');
                     candidatePhotoURL = 'candidatePhotos/Harris100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Amy Klobuchar'){
-                    console.log('Amy Klobuchar');
+                    // console.log('Amy Klobuchar');
                     candidatePhotoURL = 'candidatePhotos/Klobuchar100px.png'
                 }
                 else if(allEvents[candidate][0]['organization'].slug === 'corybooker'){
-                    console.log('cory booker');
+                    // console.log('cory booker');
                     candidatePhotoURL = 'candidatePhotos/Booker100px.png'
                 }
                 else if(allEvents[candidate][0]['organization']['candidate_name'] === 'Tom Steyer'){
-                    console.log('Tom Steyer');
+                    // console.log('Tom Steyer');
                     candidatePhotoURL = 'candidatePhotos/Steyer100px.png'
                 }
                 else {
-                    console.log('No Candidate Found')
+                    // console.log('No Candidate Found')
                 }
                 if(allEvents[candidate][i].lat === null || allEvents[candidate][i].lon === null){
                     continue;
@@ -120,6 +138,22 @@ function initMap(){
                 }
 
 
+                // [
+
+                //     "elizabethwarren.com",
+                //     "yang2020",
+                //     "joebiden",
+                //     "peteforamerica",
+                //     "https://events.berniesanders.com/event/",
+                //     "kamalaharris",
+                //     "amyklobuchar",
+                //     "corybooker",
+                //     "https://events.tomsteyer.com/event/"
+
+                // ]
+ 
+
+
 
 
                 //assigns the correct title for each infoWindow popup (one per marker)
@@ -139,7 +173,7 @@ function initMap(){
 
 
 
-                //This is the text used in each infoWindow.
+                //Populates each infoWindow with the appropriate text and links.
                 let contentString = 
                 '<div id="content">'+
                 '<div id="eventDescription">'+
@@ -174,11 +208,17 @@ function initMap(){
 
                 //Allows user to open infoWindow popups with more info when they click a candidate's marker
                 marker.addListener('click', function() {
-                    console.log(infoWindow)
                     infoWindow.open(map, marker);
                 });
 
-                markerHolder.push(marker)
+                markerHolder.push({
+                    marker,
+                    event: allEvents[candidate][i],
+                    candidate: candidate,
+                    // candidate: allEvents[candidate][i].organization.candidate_name,
+
+                })
+                fullListOfEvents.push(allEvents[candidate][i])
 
                 
             }
@@ -186,28 +226,66 @@ function initMap(){
     }
     addMarkersCreateArray();
 
-    function setMapOnAll(map) {
-        for (var i = 0; i < markerHolder.length; i++) {
-            markerHolder[i].setMap(map);
+
+    let updateMap = function(map){
+        for(var i = 0; i < markerHolder.length; i++){
+            if(markerHolder[i].candidate === "warrenEvents" && candidateIsVisible['elizabethWarren'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "yangEvents" && candidateIsVisible['andrewYang'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "bidenEvents" && candidateIsVisible['joeBiden'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "buttigiegEvents" && candidateIsVisible['peteButtigieg'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "harrisEvents" && candidateIsVisible['kamalaHarris'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "klobucharEvents" && candidateIsVisible['amyKlobuchar'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "bookerEvents" && candidateIsVisible['coryBooker'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "sandersEvents" && candidateIsVisible['bernieSanders'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else if(markerHolder[i].candidate === "steyerEvents" && candidateIsVisible['tomSteyer'] === true){
+                markerHolder[i].marker.setMap(map)
+            }
+            else{
+                // console.log('fail case: ', markerHolder[i])
+                markerHolder[i].marker.setMap(null)
+            }
+            // markerHolder[i].setMap(map);
         }
     }
+    // updateMap(map);    call this on click
+
+    // allEvents[candidate][i].organization.name.includes('Bernie'))
+    // markerHolder[157].event.organization.name
+
+
+    //piopulates map with every single event.  We need to delete this eventually and make
+   //iut check dateRangeHolder and candidateIsVisible.
+    // function setMapOnAll(map) {
+    //     for (var i = 0; i < markerHolder.length; i++) {
+    //         markerHolder[i].setMap(map);
+    //         checkedAndDateStatus[i] = {
+    //             checked: false,
+    //             date: fullListOfEvents[i].times[0].start.slice(0,10)
+    //         };
+
+    //     }
+    // }
 
     //calls the function setMapOnAll(), iterating through array markerHolder to populate map w/ markers
-    setMapOnAll(map);
+    // setMapOnAll(map);
 
 
-    // toggle for all candidates (this is better sytactically then the toggles below.)
-    const selectAll = document.getElementById('selectAll')
-    selectAll.addEventListener('change', (event) => {
-        for(var i = 0; i < markerHolder.length; i++){
-            if (event.target.checked) {
-                // console.log('checked');
-                markerHolder[i].setMap(map)
-            } else {
-                markerHolder[i].setMap(null)
-            }
-        }
-    })
 
     const candidates = {
         seeYangEvents : {
@@ -241,72 +319,121 @@ function initMap(){
 
     for(var i = 0; i < document.querySelectorAll('.candidate-check').length; i++){
         document.querySelectorAll('.candidate-check')[i].addEventListener('change', function(event){
-            let canidateId = event.target.id // somehow get the id of the element that was checked/unchecked
-            let icon = candidates[canidateId].icon
-
-            for(var j = 0; j < markerHolder.length; j++){
-                if(markerHolder[j].icon.url === icon){
-                    if (event.target.checked) {
-                        markerHolder[j].setMap(map)
-                    } 
-                    else {
-                        markerHolder[j].setMap(null)
-
-                    }
-                }
+            let candidateId = event.target.id // somehow get the id of the element that was checked/unchecked
+            // let icon = candidates[candidateId].icon
+            if(candidateIsVisible[candidateId] === true){
+                candidateIsVisible[candidateId] = false
+                document.getElementById("selectAll").checked = false;
             }
+            else if(candidateIsVisible[candidateId] === false){
+                candidateIsVisible[candidateId] = true
+                // document.getElementById("selectAll").checked = false;
+            }
+            updateMap(map)
+
+
+                // //Hides marker based on the calendar dates
+            $(function() {
+                $('input[name="daterange"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
+                    var getDaysArray = function(start, end) {
+                        for(var arr=[],dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
+                            arr.push(new Date(dt));
+                        }
+                        return arr;
+                    };
+                    var daylist = getDaysArray(new Date(start),new Date(end));
+                    let fullListOfSelectedDays = daylist.map((v)=>v.toISOString().slice(0,10));
+                    let firstDay = fullListOfSelectedDays[0];
+                    let lastDay = fullListOfSelectedDays[fullListOfSelectedDays.length - 1];
+                    dateRangeHolder.push(firstDay);
+                    dateRangeHolder.push(lastDay)
+
+
+
+
+                    //loop through full data set and show only events that fall within the range of fullListOfSelectedDays.
+                    for(var i = 0; i < fullListOfEvents.length; i++){
+                        let eventDate = fullListOfEvents[i].times[0].start.slice(0,10);
+                        if((eventDate < lastDay && eventDate > firstDay) && candidateIsVisible[candidateId] === true){
+                            markerHolder[i].marker.setMap(map)
+                            // console.log(eventDate + ' falls within the range of ' + firstDay + ' - ' + lastDay);
+                        }
+                        else{
+                            markerHolder[i].marker.setMap(null)
+                            // console.log(eventDate + 'DOES NOT fall within the range of ' + firstDay + ' - ' + lastDay);
+
+
+                        }
+                        // console.log(eventDate, firstDay, lastDay);
+                    }
+
+                });
+            });
         })
     }
 
 
 
+    // toggle for all candidates.
+    const selectAll = document.getElementById('selectAll')
+    selectAll.addEventListener('change', (event) => {
 
+        candidateIsVisible['allCandidates'] = event.target.checked;
 
-
-    // //Hides marker based on the calendar dates
-    $(function() {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left'
-        }, function(start, end, label) {
-            let dateRange = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
-            var getDaysArray = function(start, end) {
-                for(var arr=[],dt=start; dt<=end; dt.setDate(dt.getDate()+1)){
-                    arr.push(new Date(dt));
-                }
-                return arr;
-            };
-            var daylist = getDaysArray(new Date(start),new Date(end));
-            let fullListOfSelectedDays = daylist.map((v)=>v.toISOString().slice(0,10));
-
-            //loop through full data set and show only events that fall within the range of fullListOfSelectedDays.
-
-            for(var i = 0; i < markerHolder.length; i++){
-                markerHolder[i].setMap(null)
+        function selectAllCheckboxes() {
+            var items = document.getElementsByClassName('candidate-check');
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type == 'checkbox')
+                    items[i].checked = true;
             }
-
-
-
-            for(var candidate in allEvents){
-                for(var i = 0; i < allEvents[candidate].length; i++){
-                    for(var j = 0; j < fullListOfSelectedDays.length; j++){
-                        if(allEvents[candidate][i].times[0].start.slice(0,10) === fullListOfSelectedDays[j]){
-                            markerHolder[i].setMap(map)
-                            // console.log(allEvents[candidate][i].times[0].start.slice(0,10) + ' should be equal to ' + fullListOfSelectedDays[j])
-                            console.log('SHOULD BE VISIBLE ' + allEvents[candidate][i].name, allEvents[candidate][i].times[0].start.slice(0,10))
-
-                            // console.log(allEvents[candidate][i] + ':  This event should be visible')
-                        }else{
-                            markerHolder[i].setMap(null)
-                            // console.log(allEvents[candidate][i].times[0].start.slice(0,10) + ' should NOT be equal to ' + fullListOfSelectedDays[j])
-                            // console.log('SHOULD NOT BE VISIBLE ' + allEvents[candidate][i].name, allEvents[candidate][i].times[0].start.slice(0,10))
-
-
-                            // console.log(allEvents[candidate][i] + ':  This event should be hidden')
-                        }
-                    }
-                }
+        }
+    
+        function UnSelectAllCheckboxes() {
+            var items = document.getElementsByClassName('candidate-check');
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type == 'checkbox')
+                    items[i].checked = false;
             }
-        });
-    });
+        }	
 
+        if(candidateIsVisible['allCandidates'] === true){
+            candidateIsVisible['andrewYang'] = true;
+            candidateIsVisible['elizabethWarren'] = true;
+            candidateIsVisible['joeBiden'] = true;
+            candidateIsVisible['peteButtigieg'] = true;
+            candidateIsVisible['bernieSanders'] = true;
+            candidateIsVisible['kamalaHarris'] = true;
+            candidateIsVisible['amyKlobuchar'] = true;
+            candidateIsVisible['coryBooker'] = true;
+            candidateIsVisible['tomSteyer'] = true;
+            selectAllCheckboxes()
+        }
+        else if (candidateIsVisible['allCandidates'] === false){
+            candidateIsVisible['andrewYang'] = false;
+            candidateIsVisible['elizabethWarren'] = false;
+            candidateIsVisible['joeBiden'] = false;
+            candidateIsVisible['peteButtigieg'] = false;
+            candidateIsVisible['bernieSanders'] = false;
+            candidateIsVisible['kamalaHarris'] = false;
+            candidateIsVisible['amyKlobuchar'] = false;
+            candidateIsVisible['coryBooker'] = false;
+            candidateIsVisible['tomSteyer'] = false;
+            UnSelectAllCheckboxes()
+        }
+        updateMap(map)
+    })
+
+
+
+
+
+
+
+
+    //onclicl, loop through candidateIsVisible and dateRangeHolder
+    //if candidate is visible, display it, else do not
+    //loop through all events.  If the date doesn't fall within range, hide it.
 }

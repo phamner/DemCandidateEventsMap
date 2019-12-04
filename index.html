@@ -28,31 +28,31 @@
         <input type='checkbox' id='selectAll'><span class='label-text'>Select All</span>
       </label>
       <label>
-          <input type='checkbox' id='seeYangEvents' class='candidate-check'><span class='label-text'>Andrew Yang</span>
+          <input type='checkbox' id='andrewYang' class='candidate-check'><span class='label-text'>Andrew Yang</span>
       </label>
       <label>
-          <input type='checkbox' id='seeWarrenEvents' class='candidate-check'><span class='label-text'>Elizabeth Warren</span>
+          <input type='checkbox' id='elizabethWarren' class='candidate-check'><span class='label-text'>Elizabeth Warren</span>
       </label>
       <label>
-          <input type='checkbox' id='seeBidenEvents' class='candidate-check'><span class='label-text'>Joe Biden</span>
+          <input type='checkbox' id='joeBiden' class='candidate-check'><span class='label-text'>Joe Biden</span>
       </label>
       <label>
-          <input type='checkbox' id='seeButtigiegEvents' class='candidate-check'><span class='label-text'>Pete Buttigieg</span>
+          <input type='checkbox' id='peteButtigieg' class='candidate-check'><span class='label-text'>Pete Buttigieg</span>
       </label>
       <label>
-          <input type='checkbox' id='seeSandersEvents' class='candidate-check'><span class='label-text'>Bernie Sanders</span>
+          <input type='checkbox' id='bernieSanders' class='candidate-check'><span class='label-text'>Bernie Sanders</span>
       </label>
       <label>
-          <input type='checkbox' id='seeHarrisEvents' class='candidate-check'><span class='label-text'>Kamala Harris</span>
+          <input type='checkbox' id='kamalaHarris' class='candidate-check'><span class='label-text'>Kamala Harris</span>
       </label>
       <label>
-          <input type='checkbox' id='seeKlobucharEvents' class='candidate-check'><span class='label-text'>Amy Klobuchar</span>
+          <input type='checkbox' id='amyKlobuchar' class='candidate-check'><span class='label-text'>Amy Klobuchar</span>
       </label>
       <label>
-          <input type='checkbox' id='seeBookerEvents' class='candidate-check'><span class='label-text'>Cory Booker</span>
+          <input type='checkbox' id='coryBooker' class='candidate-check'><span class='label-text'>Cory Booker</span>
       </label>
       <label>
-          <input type='checkbox' id='seeSteyerEvents' class='candidate-check'><span class='label-text'>Tom Steyer</span>
+          <input type='checkbox' id='tomSteyer' class='candidate-check'><span class='label-text'>Tom Steyer</span>
       </label><br>
       <label>Select Dates</label>
     </div>
@@ -128,23 +128,26 @@
     <!--The div element for the map -->
 
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-            appId      : '442904353088918',
-            xfbml      : true,
-            version    : 'v5.0'
-            });
-            FB.AppEvents.logPageView();
-            FB.api(
-                "/joebiden",
-                {access_token: '442904353088918|ot6UwLO_PpLcVczfJAdolkCiATs'},
-                function (response) {
-                    // console.log(response)
-                    if (response && !response.error) {
-                        /* handle the result */
-                }
-            });
-        };
+
+        //The code below is the code that Colin believes can be deleted, as we are no longer using FB to track events.
+
+        // window.fbAsyncInit = function() {
+        //     FB.init({
+        //     appId      : '442904353088918',
+        //     xfbml      : true,
+        //     version    : 'v5.0'
+        //     });
+        //     FB.AppEvents.logPageView();
+        //     FB.api(
+        //         "/joebiden",
+        //         {access_token: '442904353088918|ot6UwLO_PpLcVczfJAdolkCiATs'},
+        //         function (response) {
+        //             // console.log(response)
+        //             if (response && !response.error) {
+        //                 /* handle the result */
+        //         }
+        //     });
+        // };
 
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
