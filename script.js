@@ -138,13 +138,13 @@ function runApp(){
 
 
                 // console.log(allData[i].data[j].location.address_lines[0] === null)
-                let location = '';
+                // let location = '';
 
-                if(allData[i].data[j].location.address_lines[0] !== null){
-                    location = allData[i].data[j].location.address_lines[0]
-                } else {
-                    location = 'SORRY FOLKS, WALLY WORLDS CLOSED'
-                }
+                // if(allData[i].data[j].location.address_lines[0] !== null){
+                //     location = allData[i].data[j].location.address_lines[0]
+                // } else {
+                //     location = 'SORRY FOLKS, WALLY WORLDS CLOSED'
+                // }
 
 
                 // console.log(allData[i].data[j].location['venue'])
@@ -161,7 +161,7 @@ function runApp(){
                 '<div id="bodyContent">'+
                 `<p><b></b>Event: ${allData[i].data[j].title}<br>`+
                 `Date: ${new Date(allData[i].data[j].timeslots[0].start_date * 1000)}<br>`+
-                `Location: ${location}<br><br>`+
+                // `Location: ${location}<br><br>`+
                 // ${allEvents[candidate][i].address_line1}, ${allEvents[candidate][i].city}, ${allEvents[candidate][i].state} ${allEvents[candidate][i].zipcode}<br><br>`+
                 `${allData[i].data[j].description}<br><br>`+
                 `<a target="_blank" href=${eventURLString}>Click Here to Learn More</a>`+
