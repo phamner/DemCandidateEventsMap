@@ -140,6 +140,8 @@ function runApp(){
                 }
 
 
+
+
                 if(!allData[i].data[j].location){
                     address = 'no data';
                     // console.log(venue)
