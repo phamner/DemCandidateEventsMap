@@ -1,5 +1,5 @@
 
-const idNumberForEachCampaign = [   
+const idNumberForEachCampaign = [
     1310, //warren
     1396, //yang
     1393, //Biden

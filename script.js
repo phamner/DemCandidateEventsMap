@@ -84,7 +84,7 @@ function runApp(){
 
 
     //ONLY ADD CODE TO THIS VERSION.
-    let createMarkersForEachEvent = function(){
+    let  = function(){
         for(var i = 0; i < allData.length; i++){
             for(var j = 0; j < allData[i].data.length; j++){
                 // Assigns the correct icon picture and event URL to each event.
